@@ -1,7 +1,7 @@
 ### Hi there 👋
 
-<h1 align="center">Hi 👋, I'm yudaeun</h1>
-<h3 align="center">저는 full-stack 개발자 지망생 유다은입니다.</h3>
+<h1 align="center">yudaeun</h1>
+<h3 align="center">개발자 지망생 유다은입니다.</h3>
 
 - 🌱 I’m currently learning **Spring framework**
 
