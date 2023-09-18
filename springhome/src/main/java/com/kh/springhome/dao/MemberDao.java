@@ -39,6 +39,11 @@ public interface MemberDao {
 	List<StatDto> selectGroupByYear();
 	List<StatDto> selectGroupByMonth();
 	List<StatDto> selectGroupByDate();
+	
+	//프로필 관련 기능
+	void insertProfile(String memberId, int attachNo);
+	boolean deleteProfile(String memberId);
+	Integer findProfile(String memberId);
 }
 
 

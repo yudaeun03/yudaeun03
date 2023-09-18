@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.spring12file.configuration.FileUploadProperties;
 import com.kh.spring12file.Dao.AttachDao;
 import com.kh.spring12file.Dto.AttachDto;
 
@@ -30,6 +33,19 @@ public class FileRestController {
 	@Autowired
 	private AttachDao attachDao;
 	
+	//미리 작성해둔 커스텀 속성을 불러와서 디렉터리 객체까지 생성
+	@Autowired
+	private FileUploadProperties props;
+	
+	private File dir;
+	
+	@PostConstruct//모든 로딩이 끝나면 자동으로 실행되는 메소드
+	public void init() {
+		dir = new File(props.getHome());
+		dir.mkdirs();
+	}
+	
+	
 	//비동기통신에서는 화면에서 다음 작업이 가능하도록 파일번호 등을 전달
 	@PostMapping("/upload")
 	public Map<String, Object> upload(
@@ -41,10 +57,6 @@ public class FileRestController {
 		
 		//[2] 시퀀스 번호를 파일명으로 하여 실제 파일을 저장한다
 		//- 같은 이름에 대한 충돌을 방지하기 위해
-		String home = System.getProperty("user.home");
-		File dir = new File(home, "upload");//저장할디렉터리
-		dir.mkdirs();//디렉터리 생성
-		
 		File target = new File(dir, String.valueOf(attachNo));//저장할파일
 		attach.transferTo(target);//저장
 		
@@ -71,9 +83,6 @@ public class FileRestController {
 			//throw new NoTargetException("파일 없음");//내가만든 예외로 통합
 			return ResponseEntity.notFound().build();//404 반환
 		}
-		
-		String home = System.getProperty("user.home");
-		File dir = new File(home, "upload");
 		File target = new File(dir, String.valueOf(attachDto.getAttachNo()));
 		
 		byte[] data = FileUtils.readFileToByteArray(target);//실제파일정보 불러오기

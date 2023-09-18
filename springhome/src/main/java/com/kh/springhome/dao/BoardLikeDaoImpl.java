@@ -28,7 +28,6 @@ public class BoardLikeDaoImpl implements BoardLikeDao{
 		};
 		jdbcTemplate.update(sql, data);
 	}
-
 	
 	@Override
 	public boolean delete(BoardLikeDto boardLikeDto) {
@@ -52,7 +51,7 @@ public class BoardLikeDaoImpl implements BoardLikeDao{
 	
 	@Override
 	public int count(int boardNo) {
-		String sql = "select count(*) from board_like where board_no = ?"; // 글번호알려줄테니 카운트세서 좋아요 알려달랑 
+		String sql = "select count(*) from board_like where board_no = ?";
 		Object[] data = {boardNo};
 		return jdbcTemplate.queryForObject(sql, int.class, data);
 	}
