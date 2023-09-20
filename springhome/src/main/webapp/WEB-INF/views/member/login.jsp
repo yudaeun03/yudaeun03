@@ -23,6 +23,9 @@
 			Login
 		</button>
 	</div>
+	<div class="row">
+		<a href="findPw" class="link">비밀번호 찾기</a>
+	</div>
 	
 	<%--
 		EL은 출력을 쉽게 하기 위한 언어이므로 여러 데이터를 쉽게 접근할 수 있다.

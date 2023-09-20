@@ -3,6 +3,8 @@ package com.kh.springhome.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,9 @@ public class MemberController {
 	//자식 클래스 중에서 등록된 것을 찾아 주입한다
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Autowired
+	private JavaMailSender sender;
 	
 	@GetMapping("/join")
 	public String join() {
@@ -206,7 +211,45 @@ public class MemberController {
 	public String exitFinish() {
 		return "/WEB-INF/views/member/exitFinish.jsp";
 	}
+	
+	//비밀번호 찾기
+	@GetMapping("/findPw")
+	public String findPw() {
+		return "/WEB-INF/views/member/findPw.jsp";
+	}
+	
+	@PostMapping("/findPw")
+	public String findPw(@ModelAttribute MemberDto memberDto) {
+		//[1] 아이디로 모든 정보를 불러오고
+		MemberDto findDto = 
+				memberDao.selectOne(memberDto.getMemberId());
+		//[2] 이메일이 일치하는지 확인한다
+		boolean isValid = findDto != null 
+				&& findDto.getMemberEmail().equals(memberDto.getMemberEmail());
+		if(isValid) {//이메일이 같다면
+			//이메일 발송 코드
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setTo(findDto.getMemberEmail());
+			message.setSubject("비밀번호 찾기 결과");
+			message.setText(findDto.getMemberPw());
+			sender.send(message);
+			
+			return "redirect:findPwFinish";
+		}
+		else {//이메일이 다르다면
+			return "redirect:findPw?error";
+		}
+	}
+	
+	@RequestMapping("/findPwFinish")
+	public String findPwFinish() {
+		return "/WEB-INF/views/member/findPwFinish.jsp";
+	}
 }
+
+
+
+
 
 
 
