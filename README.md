@@ -1,5 +1,6 @@
-### Hi there 👋
+
 ### About Me 
+<br><br>
 <h1 align="center"> 유다은 劉多銀 yudaeun</h1>
 <h3 align="center">개발자 지망생 유다은입니다.</h3>
 
