@@ -4,8 +4,12 @@
 <h1 align="center"> 유다은 劉多銀 yudaeun</h1>
 <h3 align="center">개발자 지망생 유다은입니다.</h3>
 
-- 🌱 I’m currently learning **Spring framework**
+<br>
+<h4 align="center"> 안녕하세요? 시작은 지금부터! 이곳은 다각도로 성장하는 비전공자의 출발선입니다.
+언젠가는 제 손으로, 제 힘으로 세상에 좋은 영향력을 끼칠 수 있는 서비스를 위해 무엇이든 열정적으로 임할 자신이 있습니다. </h4>
 
+- 🌱 **Spring framework** 🌱
+- <br>
 <h3 align="left">Connect with me:</h3>
 <p align="left">
 </p>
